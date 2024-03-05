@@ -19,7 +19,9 @@ public class SeleniumUtilities extends BaseSetup {
     // Create A method "clickElement" that take By
     // object and click on element
     public void clickElement(By locator){
-        getWait().until(ExpectedConditions.elementToBeClickable(locator)).click();
+        getWait().until(
+                ExpectedConditions.elementToBeClickable(locator))
+                .click();
     }
 
     public String getElementText(By locator) {
@@ -32,6 +34,18 @@ public class SeleniumUtilities extends BaseSetup {
       boolean isEnabled = getWait().until(ExpectedConditions.presenceOfElementLocated(locator))
                 .isEnabled();
       return isEnabled;
+    }
+
+    public void sendTextToElement(By locator, String text) {
+        getWait().until(
+                ExpectedConditions.visibilityOfElementLocated(locator))
+                .sendKeys(text);
+    }
+
+    public boolean isElementDisplayed(By locator) {
+      return getWait().until(ExpectedConditions
+                .visibilityOfElementLocated(locator))
+                .isDisplayed();
     }
 
 }
