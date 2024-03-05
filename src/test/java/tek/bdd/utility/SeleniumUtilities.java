@@ -27,4 +27,11 @@ public class SeleniumUtilities extends BaseSetup {
                 .getText();
        return text;
     }
+
+    public boolean isElementEnabled(By locator) {
+      boolean isEnabled = getWait().until(ExpectedConditions.presenceOfElementLocated(locator))
+                .isEnabled();
+      return isEnabled;
+    }
+
 }
