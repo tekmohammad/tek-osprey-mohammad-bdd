@@ -6,11 +6,12 @@ import org.junit.runner.RunWith;
 
 @RunWith(Cucumber.class)
 @CucumberOptions(
-        features = "classpath:features/SecurityTest.feature",
+        features = "classpath:features",
         glue = "tek.bdd.steps",
         dryRun = false,
         plugin = {
-                "html:target/html_report/index.html"
+                "pretty",
+                "html:target/html_report/index.html",
         }
 )
 public class TestRunner {
