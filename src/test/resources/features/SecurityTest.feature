@@ -1,9 +1,11 @@
+@Regression
 Feature: Retail app security test feature.
 
-
-
-  Scenario Outline: Validate Valid user credential
+  Background: Description about the background
     Given User click on Sign In Button
+
+  @Security_Positive
+  Scenario Outline: Validate Valid user credential
     When User enter "<username>" and "<password>" and click on Login
     Then User will see Account button on home page.
 
@@ -12,9 +14,8 @@ Feature: Retail app security test feature.
       | mohammad_osprey@tekschool.us | 12345678Ab@ |
       | mansoor@gmail.com            | Ruya@2014   |
 
-
+  @Security_Negative
   Scenario Outline: Validate Sign in with Invalid Credentials
-    Given User click on Sign In Button
     When User enter "<username>" and "<password>" and click on Login
     Then validate error message "<errorMessage>"
 
