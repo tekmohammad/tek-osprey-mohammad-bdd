@@ -14,10 +14,10 @@ public class SecurityTestSteps extends SeleniumUtilities {
     public void userClickOnSignInButton() {
         clickElement(HomePage.SING_IN_BUTTON);
     }
-    @When("User enter username and password and click on Login")
-    public void userEnterCredentialsAndClickLogin() {
-        sendTextToElement(LoginPage.EMAIL_INPUT, "mohammad_osprey@tekschool.us");
-        sendTextToElement(LoginPage.PASSWORD_INPUT, "12345678Ab@");
+    @When("User enter {string} and {string} and click on Login")
+    public void userEnterCredentialsAndClickLogin(String username, String password) {
+        sendTextToElement(LoginPage.EMAIL_INPUT, username);
+        sendTextToElement(LoginPage.PASSWORD_INPUT, password);
 
         clickElement(LoginPage.LOGIN_BUTTON);
     }
