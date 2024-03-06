@@ -26,4 +26,11 @@ public class SecurityTestSteps extends SeleniumUtilities {
        boolean isDisplayed = isElementDisplayed(HomePage.ACCOUNT_LINK);
         Assert.assertTrue(isDisplayed);
     }
+
+    @Then("validate error message {string}")
+    public void validateErrorMessage(String expectedErrorMessage) {
+       String actualError = getElementText(LoginPage.ERROR_MESSAGE);
+
+       Assert.assertEquals(expectedErrorMessage, actualError);
+    }
 }
