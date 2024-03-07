@@ -1,5 +1,6 @@
 package tek.bdd.steps;
 
+import io.cucumber.datatable.DataTable;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
@@ -10,8 +11,12 @@ import tek.bdd.pages.SignUpPage;
 import tek.bdd.utility.DataGeneratorUtility;
 import tek.bdd.utility.SeleniumUtilities;
 
+import java.util.List;
+import java.util.Map;
+
 public class CreateAccountSteps extends SeleniumUtilities {
     private String generatedRandomEmail;
+
     @Given("User click on Create Account")
     public void user_click_on_create_account() {
         clickElement(LoginPage.CREATE_ACCOUNT_LINK);
@@ -25,6 +30,40 @@ public class CreateAccountSteps extends SeleniumUtilities {
         sendTextToElement(SignUpPage.EMAIL_INPUT, generatedRandomEmail);
         sendTextToElement(SignUpPage.PASSWORD_INPUT, password);
         sendTextToElement(SignUpPage.CONFIRM_PASSWORD_INPUT, password);
+    }
+
+    @When("User fill up Sign up Form")
+    public void user_fill_up_sign_up_form(DataTable dataTable) {
+        //Step 1) Converting Data Table to Map.
+        Map<String, String> data = dataTable.asMap();
+        String email = data.get("email");
+        String name = data.get("name");
+        String password = data.get("password");
+
+        generatedRandomEmail = DataGeneratorUtility.randomEmail(email);
+
+        sendTextToElement(SignUpPage.NAME_INPUT, name);
+        sendTextToElement(SignUpPage.EMAIL_INPUT, generatedRandomEmail);
+        sendTextToElement(SignUpPage.PASSWORD_INPUT, password);
+        sendTextToElement(SignUpPage.CONFIRM_PASSWORD_INPUT, password);
+    }
+
+    @When("User fill up Sign up Form With List Data Table")
+    public void user_fill_up_sign_up_form_with_list_data_table(DataTable dataTable) {
+        //This Example used List of Data. Converting Data table to List.
+        List<String> data = dataTable.asList();
+        String name = data.get(0);
+        String email = data.get(1);
+        String password = data.get(2);
+
+
+        generatedRandomEmail = DataGeneratorUtility.randomEmail(email);
+
+        sendTextToElement(SignUpPage.NAME_INPUT, name);
+        sendTextToElement(SignUpPage.EMAIL_INPUT, generatedRandomEmail);
+        sendTextToElement(SignUpPage.PASSWORD_INPUT, password);
+        sendTextToElement(SignUpPage.CONFIRM_PASSWORD_INPUT, password);
+
     }
 
     @When("User Click on Sign up button")
