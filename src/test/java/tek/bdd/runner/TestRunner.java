@@ -9,7 +9,7 @@ import org.junit.runner.RunWith;
         features = "classpath:features",
         glue = "tek.bdd.steps",
         dryRun = false,
-        tags = "@CreateNewAccount",
+        tags = "@Story_1",
         plugin = {
                 "pretty",
                 "html:target/html_report/index.html",

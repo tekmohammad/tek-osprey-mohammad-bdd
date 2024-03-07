@@ -3,7 +3,7 @@ Feature: Major Functionalities for Smoke Test
 
   @Story_1
   Scenario: Validate Home page title
-    Then Validate top left corner is "TEKSCHOOL"
+    Then Validate top left corner is "TEKSCHOOL1"
 
 
     @Story_2
