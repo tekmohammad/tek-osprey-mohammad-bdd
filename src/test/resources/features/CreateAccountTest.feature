@@ -15,9 +15,9 @@ Feature: Create New Account Page
     Given User click on Sign In Button
     Given User click on Create Account
     When User fill up Sign up Form
-      | name     | Mohammad                |
       | email    | instructor@tekschool.us |
       | password | 123456Ab@               |
+      | name     | Mohammad                |
     When User Click on Sign up button
     Then User will navigate to Account Profile Page
     Then Validate "Mohammad" and email in account page
