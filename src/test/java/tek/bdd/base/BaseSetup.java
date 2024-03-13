@@ -1,23 +1,48 @@
 package tek.bdd.base;
 
 
-
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
 import java.time.Duration;
+import java.util.Properties;
 
 public class BaseSetup {
-
     private static WebDriver driver;
+    private final Properties properties = new Properties();
+
+    //Constructor
+    public BaseSetup() {
+        // To read a Properties file. 1) File in System.
+        // 2) FileInputStream, 3) Object of Properties Class. to Load
+        //File Location       System.getProperty("user.dir") return location of Project
+        try {
+            String fileFilePath = System.getProperty("user.dir")
+                    + "/src/test/resources/config/application-config.properties";
+            File propertiesFile = new File(fileFilePath);
+            FileInputStream propertyFileInputStream = new FileInputStream(propertiesFile);
+
+            properties.load(propertyFileInputStream);
+
+        } catch (IOException ex) {
+            //TODO complete Exception Handling
+        }
+
+    }
+
 
     public void openBrowser() {
-        String browserType = "edge";
-        if(browserType.equalsIgnoreCase("chrome")) {
+        //Read browser type from Properties file
+        String browserType = this.properties.getProperty("retail.browser.type");
+
+        if (browserType.equalsIgnoreCase("chrome")) {
             driver = new ChromeDriver();
-        } else if (browserType.equalsIgnoreCase("edge")){
+        } else if (browserType.equalsIgnoreCase("edge")) {
             driver = new EdgeDriver();
         } else if (browserType.equalsIgnoreCase("firefox")) {
             driver = new FirefoxDriver();
@@ -26,7 +51,9 @@ public class BaseSetup {
         }
 
         driver.manage().window().maximize();
-        driver.get("https://retail.tekschool-students.com/");
+        //Get Url from Property File
+        String url = this.properties.getProperty("retail.ui.url");
+        driver.get(url);
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
     }
 
