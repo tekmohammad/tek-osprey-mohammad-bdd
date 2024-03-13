@@ -48,6 +48,25 @@ public class CreateAccountSteps extends SeleniumUtilities {
         sendTextToElement(SignUpPage.CONFIRM_PASSWORD_INPUT, password);
     }
 
+    @When("User fill up Sign up Form With List Of Map Data Table")
+    public void user_fill_up_sign_up_form_with_list_of_map_data_table(DataTable dataTable) {
+        //Converting data table to List of maps. asMaps()
+        List<Map<String, String>> data = dataTable.asMaps();
+        //Extract first row Data
+        Map<String, String> dataMap  = data.get(0);
+
+        String email = dataMap.get("email");
+        String name = dataMap.get("name");
+        String password = dataMap.get("password");
+
+        generatedRandomEmail = DataGeneratorUtility.randomEmail(email);
+
+        sendTextToElement(SignUpPage.NAME_INPUT, name);
+        sendTextToElement(SignUpPage.EMAIL_INPUT, generatedRandomEmail);
+        sendTextToElement(SignUpPage.PASSWORD_INPUT, password);
+        sendTextToElement(SignUpPage.CONFIRM_PASSWORD_INPUT, password);
+    }
+
     @When("User fill up Sign up Form With List Data Table")
     public void user_fill_up_sign_up_form_with_list_data_table(DataTable dataTable) {
         //This Example used List of Data. Converting Data table to List.
@@ -64,6 +83,26 @@ public class CreateAccountSteps extends SeleniumUtilities {
         sendTextToElement(SignUpPage.PASSWORD_INPUT, password);
         sendTextToElement(SignUpPage.CONFIRM_PASSWORD_INPUT, password);
 
+    }
+
+    @When("User fill up Sign up Form With List Of List Data Table")
+    public void user_fill_up_sign_up_form_with_list_of_list_data_table(DataTable dataTable) {
+        //Convert data table to List of List asLists().
+        List<List<String>> rawData = dataTable.asLists();
+        //Extracting first row of List
+        List<String> data = rawData.get(0);
+
+        String name = data.get(0);
+        String email = data.get(1);
+        String password = data.get(2);
+
+
+        generatedRandomEmail = DataGeneratorUtility.randomEmail(email);
+
+        sendTextToElement(SignUpPage.NAME_INPUT, name);
+        sendTextToElement(SignUpPage.EMAIL_INPUT, generatedRandomEmail);
+        sendTextToElement(SignUpPage.PASSWORD_INPUT, password);
+        sendTextToElement(SignUpPage.CONFIRM_PASSWORD_INPUT, password);
     }
 
     @When("User Click on Sign up button")
