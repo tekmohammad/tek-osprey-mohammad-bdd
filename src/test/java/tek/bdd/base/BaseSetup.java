@@ -3,6 +3,7 @@ package tek.bdd.base;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 
@@ -47,7 +48,12 @@ public class BaseSetup {
             driver = new EdgeDriver();
         } else if (browserType.equalsIgnoreCase("firefox")) {
             driver = new FirefoxDriver();
-        } else {
+        } else if (browserType.equalsIgnoreCase("chrome-headless")) {
+            ChromeOptions options = new ChromeOptions();
+            options.addArguments("--headless");
+            driver = new ChromeDriver(options);
+        }
+        else {
             throw new RuntimeException("Wrong browser Type");
         }
 
