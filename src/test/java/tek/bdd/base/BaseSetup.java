@@ -1,11 +1,14 @@
 package tek.bdd.base;
 
 
+import io.cucumber.java.an.E;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.edge.EdgeDriver;
+import org.openqa.selenium.edge.EdgeOptions;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.firefox.FirefoxOptions;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -41,17 +44,24 @@ public class BaseSetup {
     public void openBrowser() {
         //Read browser type from Properties file
         String browserType = this.properties.getProperty("retail.browser.type");
+        boolean isHeadless = Boolean.parseBoolean(
+                this.properties.getProperty("retail.browser.headless"));
 
         if (browserType.equalsIgnoreCase("chrome")) {
-            driver = new ChromeDriver();
-        } else if (browserType.equalsIgnoreCase("edge")) {
-            driver = new EdgeDriver();
-        } else if (browserType.equalsIgnoreCase("firefox")) {
-            driver = new FirefoxDriver();
-        } else if (browserType.equalsIgnoreCase("chrome-headless")) {
             ChromeOptions options = new ChromeOptions();
-            options.addArguments("--headless");
+            if (isHeadless)
+                options.addArguments("--headless");
             driver = new ChromeDriver(options);
+        } else if (browserType.equalsIgnoreCase("edge")) {
+            EdgeOptions options = new EdgeOptions();
+            if (isHeadless)
+                options.addArguments("--headless");
+            driver = new EdgeDriver(options);
+        } else if (browserType.equalsIgnoreCase("firefox")) {
+            FirefoxOptions options = new FirefoxOptions();
+            if (isHeadless)
+                options.addArguments("--headless");
+            driver = new FirefoxDriver(options);
         }
         else {
             throw new RuntimeException("Wrong browser Type");
