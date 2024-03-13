@@ -30,7 +30,8 @@ public class BaseSetup {
             properties.load(propertyFileInputStream);
 
         } catch (IOException ex) {
-            //TODO complete Exception Handling
+            throw new RuntimeException("Can not read or load config file "
+                    + ex.getMessage());
         }
 
     }
